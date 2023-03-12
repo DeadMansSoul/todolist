@@ -19,6 +19,13 @@ const ToDoList = () => {
     // !inputData ? alert('Please fill data') : (setItems([...items, inputData]), setInputData(""));
     if (!inputData) {
         alert('Please fill data');
+    } else if(inputData && toggleButton){
+        setItems(items.map((currentElement)=>{
+            return currentElement.id === isEditItem ? {...currentElement, name:inputData} : currentElement;
+        }));
+        setInputData("");
+        setIsEditItem(null);
+        setToggleButton(false);
     } else {
         const newData = {
             id: new Date().getTime().toString(),
@@ -55,7 +62,7 @@ const ToDoList = () => {
                         placeholder='✍ Add item' />
                     {!(toggleButton) ? 
                     <i className="fa fa-solid fa-plus" onClick={()=>{addItem()}}></i> :
-                    <i className='far fa-solid fa-edit'></i>}
+                    <i className='far fa-solid fa-edit' onClick={()=>{addItem()}}></i>}
                 </div>
                 {/* show our items */}
                 <div className='showItems'>
